@@ -1,0 +1,107 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://repo.grails.org/grails/core" }
+    }
+    dependencies {
+        classpath "org.grails:grails-gradle-plugin:$grailsVersion"
+        classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.14.1"
+        classpath "org.grails.plugins:hibernate5:${gormVersion-".RELEASE"}"
+        classpath 'org.hidetake:gradle-ssh-plugin:2.7.0'
+    }
+}
+
+plugins {
+     id "fi.evident.beanstalk" version "0.1.1"
+}
+version "0.1.2"
+group "grails.google.actions.demo"
+
+apply plugin:"eclipse"
+apply plugin:"idea"
+apply plugin:"war"
+apply plugin:"org.grails.grails-web"
+apply plugin:"org.grails.grails-gsp"
+apply plugin:"asset-pipeline"
+apply plugin: 'org.hidetake.ssh'
+
+repositories {
+    mavenLocal()
+    maven { url "https://repo.grails.org/grails/core" }
+    maven {
+        url  "http://dl.bintray.com/vanderfox/google-actions-java-sdk" 
+    }
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-autoconfigure"
+    compile "org.grails:grails-core"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-tomcat"
+    compile "org.grails:grails-dependencies"
+    compile "org.grails:grails-web-boot"
+    compile "org.grails.plugins:cache"
+    compile "org.grails.plugins:scaffolding"
+    compile "org.grails.plugins:hibernate5"
+    compile "org.hibernate:hibernate-core:5.1.3.Final"
+    compile "org.hibernate:hibernate-ehcache:5.1.3.Final"
+    console "org.grails:grails-console"
+    profile "org.grails.profiles:web"
+    runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.14.1"
+    runtime "com.h2database:h2"
+    testCompile "org.grails:grails-plugin-testing"
+    testCompile "org.grails.plugins:geb"
+    testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
+    testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
+    compile 'com.frogermc:google-actions-java-sdk:1.0.2_SNAPSHOT'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'commons-io:commons-io:2.4'
+}
+
+war.archiveName='grails-google-actions-demo.war'
+
+bootRun {
+    jvmArgs('-Dspring.output.ansi.enabled=always')
+    addResources = true
+}
+
+
+assets {
+    minifyJs = true
+    minifyCss = true
+}
+
+beanstalk {
+    profile = 'vanderfox'
+    s3Endpoint = "s3.amazonaws.com"
+    beanstalkEndpoint = "elasticbeanstalk.us-east-1.amazonaws.com"
+    deployments {
+        // Example to deploy to the same env
+        beta {
+            war = tasks.war
+            application = 'grails-google-actions-demo'
+            environment = 'Development'
+            template = 'default'
+        }
+    }
+}
+
+remotes {
+    deadpool {
+        identity = file('../../.ssh/alexaVictorOps.pem')
+        host = '34.207.114.236'
+        user = 'ubuntu'
+    }
+}
+
+task deploy << {
+    ssh.run {
+        session(remotes.deadpool) {
+            put from: 'build/libs/grails-google-actions-demo.war', into: '/var/lib/tomcat8/webapps/grails-google-actions-demo.war'
+            execute 'sudo service tomcat8 restart'
+        }
+    }
+}
+
+
