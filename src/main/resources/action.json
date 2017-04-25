@@ -13,6 +13,41 @@
       "httpExecution": {
         "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/index"
       }
+    },
+    {
+      "description": "Deep link that finds colors",
+      "initial_trigger": {
+        "intent": "color.intent",
+        "queryPatterns": [
+          {
+            "queryPattern": "find a brighter color for $SchemaOrg_Text:word"
+          },
+          {
+            "queryPattern": "about $SchemaOrg_Text:word"
+          },
+          {
+            "queryPattern": "find colors"
+          }
+        ]
+      },
+      "http_execution": {
+        "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/color"
+      }
+    },
+    {
+      "description": "Deep link that finds colors",
+      "initial_trigger": {
+        "intent": "color.darker.intent",
+        "queryPatterns": [
+          {
+            "queryPattern": "find a darker color for $SchemaOrg_Text:word"
+          }
+
+        ]
+      },
+      "http_execution": {
+        "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/darkerColor"
+      }
     }
   ]
 }
