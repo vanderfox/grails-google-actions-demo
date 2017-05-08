@@ -8,9 +8,13 @@ import com.frogermcs.gactions.api.response.RootResponse;
 /**
  * Created by froger_mcs on 19/01/2017.
  */
-public class MainRequestHandler implements RequestHandler {
+public class MainRequestHandler extends RequestHandler {
+    protected MainRequestHandler(RootRequest rootRequest) {
+        super(rootRequest)
+    }
+
     @Override
-    public RootResponse onRequest(RootRequest rootRequest) {
+    public RootResponse getResponse() {
         return ResponseBuilder.askResponse("Hey, it works! Now tell something so I could repeat it.")
     }
 }

@@ -54,7 +54,7 @@ dependencies {
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
-    compile 'com.frogermc:google-actions-java-sdk:1.0.2_SNAPSHOT'
+    compile 'com.frogermc:google-actions-java-sdk:1.0.3_SNAPSHOT'
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'commons-io:commons-io:2.4'
 }

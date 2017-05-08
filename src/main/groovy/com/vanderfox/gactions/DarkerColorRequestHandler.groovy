@@ -14,9 +14,13 @@ import java.lang.reflect.Field
  * Created by froger_mcs on 19/01/2017.
  */
 @Slf4j
-public class DarkerColorRequestHandler implements RequestHandler {
+public class DarkerColorRequestHandler extends RequestHandler {
+    protected DarkerColorRequestHandler(RootRequest rootRequest) {
+        super(rootRequest)
+    }
+
     @Override
-    public RootResponse onRequest(RootRequest rootRequest) {
+    public RootResponse getResponse() {
         log.debug("Inputs=${rootRequest.inputs.toListString()}")
         String color = rootRequest.inputs[0].arguments[0].raw_text.toLowerCase()
 

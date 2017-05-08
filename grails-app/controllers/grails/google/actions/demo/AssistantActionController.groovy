@@ -7,8 +7,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.stream.JsonReader
 import com.vanderfox.gactions.ColorRequestHandlerFactory
+import com.vanderfox.gactions.DarkerColorRequestHandlerFactory
 import com.vanderfox.gactions.GrailsResponseHandler
 import com.vanderfox.gactions.MainRequestHandlerFactory
+import com.vanderfox.gactions.MyPermissionRequestHandlerFactory
 import com.vanderfox.gactions.TextRequestHandlerFactory
 import org.apache.commons.io.IOUtils
 
@@ -21,7 +23,9 @@ class AssistantActionController {
                 new AssistantActions.Builder(new GrailsResponseHandler(response))
                         .addRequestHandlerFactory(StandardIntents.MAIN, new MainRequestHandlerFactory())
                         .addRequestHandlerFactory(StandardIntents.TEXT, new TextRequestHandlerFactory())
+                        .addRequestHandlerFactory(StandardIntents.PERMISSION, new MyPermissionRequestHandlerFactory())
                         .addRequestHandlerFactory("color.intent", new ColorRequestHandlerFactory())
+                        .addRequestHandlerFactory("color.darker.intent", new DarkerColorRequestHandlerFactory())
                         .build()
         RootRequest rootRequest = parseActionRequest(request)
         // log to file for debugging
@@ -59,7 +63,7 @@ class AssistantActionController {
     def darkerColor() {
         AssistantActions assistantActions =
                 new AssistantActions.Builder(new GrailsResponseHandler(response))
-                        .addRequestHandlerFactory("color.intent", new ColorRequestHandlerFactory())
+                        .addRequestHandlerFactory("color.darker.intent", new DarkerColorRequestHandlerFactory())
                         .build()
         RootRequest rootRequest = parseActionRequest(request)
         // log to file for debugging

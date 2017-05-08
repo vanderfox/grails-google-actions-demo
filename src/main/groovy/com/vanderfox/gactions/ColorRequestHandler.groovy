@@ -14,9 +14,14 @@ import java.lang.reflect.Field
  * Created by froger_mcs on 19/01/2017.
  */
 @Slf4j
-public class ColorRequestHandler implements RequestHandler {
+public class ColorRequestHandler extends RequestHandler {
+
+    protected ColorRequestHandler(RootRequest rootRequest) {
+        super(rootRequest)
+    }
+
     @Override
-    public RootResponse onRequest(RootRequest rootRequest) {
+    public RootResponse getResponse() {
         log.debug("Inputs=${rootRequest.inputs.toListString()}")
         String color = rootRequest.inputs[0].arguments[0].raw_text.toLowerCase()
 
@@ -33,7 +38,9 @@ public class ColorRequestHandler implements RequestHandler {
             if (brighter != color) {
                 return ResponseBuilder.tellResponse("The brighter color for ${color} is ${brighter} ")
             } else {
-                return ResponseBuilder.tellResponse("Sorry I can't find a brighter color for ${color}.")
+                //def sorryAnswer = "Sorry I can't find a brighter color for ${color}."
+                def sorryAnswer = "<speak><audio src=\"https://actions.google.com/sounds/v1/cartoon/metallic_clank.ogg\">Sorry I can't find a brighter color for ${color}.</speak>"
+                return ResponseBuilder.tellResponse(sorryAnswer)
             }
 
         } else {
