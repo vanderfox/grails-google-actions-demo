@@ -57,6 +57,8 @@ dependencies {
     compile 'com.frogermc:google-actions-java-sdk:1.0.3_SNAPSHOT'
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'commons-io:commons-io:2.4'
+    //compile group: 'ai.api.libai.web', name: 'libai-web-servlet', version: '1.4.8'
+    compile 'org.grails.plugins:grails-api-ai:0.1-SNAPSHOT'
 }
 
 war.archiveName='grails-google-actions-demo.war'
