@@ -9,11 +9,6 @@
       },
       "intent": {
         "name": "assistant.intent.action.MAIN"
-      },
-      "trigger": {
-        "queryPatterns": [
-          "talk to color finder"
-        ]
       }
 
     },
@@ -25,19 +20,6 @@
       },
       "intent": {
         "name": "color.intent"
-      },
-      "trigger": {
-        "queryPatterns": [
-          {
-            "queryPattern": "find a brighter color for $SchemaOrg_Text:word"
-          },
-          {
-            "queryPattern": "about $SchemaOrg_Text:word"
-          },
-          {
-            "queryPattern": "find colors"
-          }
-        ]
       }
     },
     {
@@ -48,14 +30,6 @@
       },
       "intent": {
         "name": "darker.color.intent"
-      },
-      "trigger": {
-        "queryPatterns": [
-          {
-            "queryPattern": "find a darker color for $SchemaOrg_Text:word"
-          }
-
-        ]
       }
     }
   ],
