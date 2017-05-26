@@ -1,0 +1,76 @@
+{
+
+  "actions": [
+    {
+      "description": "Default Welcome Intent",
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "color-finder-echo"
+      },
+      "intent": {
+        "name": "assistant.intent.action.MAIN"
+      },
+      "trigger": {
+        "queryPatterns": [
+          "talk to color finder"
+        ]
+      }
+
+    },
+    {
+      "description": "Deep link that finds brighter colors",
+      "name":"color.intent",
+      "fulfillment": {
+        "conversationName": "color.intent"
+      },
+      "intent": {
+        "name": "color.intent"
+      },
+      "trigger": {
+        "queryPatterns": [
+          {
+            "queryPattern": "find a brighter color for $SchemaOrg_Text:word"
+          },
+          {
+            "queryPattern": "about $SchemaOrg_Text:word"
+          },
+          {
+            "queryPattern": "find colors"
+          }
+        ]
+      }
+    },
+    {
+      "description": "Deep link that finds colors",
+      "name":"color.darker.intent",
+      "fulfillment": {
+        "conversationName": "color.darker.intent"
+      },
+      "intent": {
+        "name": "darker.color.intent"
+      },
+      "trigger": {
+        "queryPatterns": [
+          {
+            "queryPattern": "find a darker color for $SchemaOrg_Text:word"
+          }
+
+        ]
+      }
+    }
+  ],
+  "conversations": {
+    "color-finder-echo": {
+      "name": "color finder",
+      "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/index"
+    },
+    "color.intent": {
+      "name": "brighter color finder",
+      "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/color"
+    },
+    "darker.color.intent": {
+      "name": "darker color finder",
+      "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/darkerColor"
+    }
+  }
+}
