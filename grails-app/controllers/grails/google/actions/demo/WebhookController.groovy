@@ -13,7 +13,7 @@ class WebhookController implements AiWebhookController{
         output.setDisplayText("You said: " + input.getResult().getFulfillment().getSpeech())
         //output.contextOut = []
         //output.data = [:]
-        output.source = "vanderfox"
+        output.source = "color-finder"
 
     }
 }

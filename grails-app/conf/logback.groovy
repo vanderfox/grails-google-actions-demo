@@ -37,7 +37,8 @@ root(WARN, appendersList)
 
 [
         'com.vanderfox',
-        'grails.google.actions.demo'
+        'grails.google.actions.demo',
+        'org.grails.apiai'
         //'org.grails.plugins',
         //'org.springframework',
 
