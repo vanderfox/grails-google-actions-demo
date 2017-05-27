@@ -8,7 +8,7 @@
         "conversationName": "color-finder-echo"
       },
       "intent": {
-        "name": "assistant.intent.action.MAIN"
+        "name": "actions.intent.MAIN"
       }
 
     },
@@ -19,17 +19,28 @@
         "conversationName": "color.intent"
       },
       "intent": {
-        "name": "color.intent"
+        "name": "color.intent",
+        "trigger": {
+          "queryPatterns": [
+            "find a brighter color for $SchemaOrg_Text:word"
+          ]
+        }
       }
+
     },
     {
       "description": "Deep link that finds colors",
       "name":"color.darker.intent",
       "fulfillment": {
-        "conversationName": "color.darker.intent"
+        "conversationName": "darker.color.intent"
       },
       "intent": {
-        "name": "darker.color.intent"
+        "name": "darker.color.intent",
+        "trigger": {
+          "queryPatterns": [
+            "find a darker color for $SchemaOrg_Text:word"
+          ]
+        }
       }
     }
   ],
