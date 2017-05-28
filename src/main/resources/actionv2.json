@@ -20,9 +20,13 @@
       },
       "intent": {
         "name": "color.intent",
+        "parameters": [{
+          "name": "color",
+          "type": "SchemaOrg_Color"
+        }],
         "trigger": {
           "queryPatterns": [
-            "find a brighter color for $SchemaOrg_Text:word"
+            "find a brighter color for $SchemaOrg_Color:color"
           ]
         }
       }
@@ -36,9 +40,13 @@
       },
       "intent": {
         "name": "darker.color.intent",
+        "parameters": [{
+          "name": "color",
+          "type": "SchemaOrg_Color"
+        }],
         "trigger": {
           "queryPatterns": [
-            "find a darker color for $SchemaOrg_Text:word"
+            "find a darker color for $SchemaOrg_Color:color"
           ]
         }
       }
@@ -46,15 +54,15 @@
   ],
   "conversations": {
     "color-finder-echo": {
-      "name": "color finder",
+      "name": "color-finder-echo",
       "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/index"
     },
     "color.intent": {
-      "name": "brighter color finder",
+      "name": "color.intent",
       "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/color"
     },
     "darker.color.intent": {
-      "name": "darker color finder",
+      "name": "darker.color.intent",
       "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/darkerColor"
     }
   }
