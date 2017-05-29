@@ -39,7 +39,7 @@ public class ColorRequestHandler extends RequestHandler {
                 return ResponseBuilder.tellResponse("The brighter color for ${color} is ${brighter} ")
             } else {
                 //def sorryAnswer = "Sorry I can't find a brighter color for ${color}."
-                def sorryAnswer = "<speak><audio src=\"https://actions.google.com/sounds/v1/cartoon/metallic_clank.ogg\">Sorry I can't find a brighter color for ${color}.</speak>"
+                def sorryAnswer = "Sorry I can't find a brighter color for ${color}."
                 return ResponseBuilder.tellResponse(sorryAnswer)
             }
 
