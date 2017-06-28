@@ -76,4 +76,22 @@ class AssistantActionController {
         null // we dont want to return a grails view here the handlers do this
 
     }
+
+
+    def startStarWarsQuiz() {
+        AssistantActions assistantActions =
+                new AssistantActions.Builder(new GrailsResponseHandler(response))
+                        .addRequestHandlerFactory("start.quiz.intent", new DarkerColorRequestHandlerFactory())
+                        .build()
+        RootRequest rootRequest = parseActionRequest(request)
+        // log to file for debugging
+        Writer writer = new FileWriter("/tmp/google-action-request-startstarwarzquiz-${System.currentTimeMillis()}-debug.json")
+        Gson gson = new GsonBuilder().create()
+        gson.toJson(rootRequest, writer)
+        writer.flush()
+        writer.close()
+        assistantActions.handleRequest(rootRequest)
+        null // we dont want to return a grails view here the handlers do this
+
+    }
 }
