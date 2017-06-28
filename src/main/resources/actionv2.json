@@ -36,10 +36,10 @@
       "description": "Deep link that finds colors",
       "name":"color.darker.intent",
       "fulfillment": {
-        "conversationName": "darker.color.intent"
+        "conversationName": "color.darker.intent"
       },
       "intent": {
-        "name": "darker.color.intent",
+        "name": "color.darker.intent",
         "parameters": [{
           "name": "color",
           "type": "SchemaOrg_Color"
@@ -61,8 +61,8 @@
       "name": "color.intent",
       "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/color"
     },
-    "darker.color.intent": {
-      "name": "darker.color.intent",
+    "color.darker.intent": {
+      "name": "color.darker.intent",
       "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/darkerColor"
     }
   }
