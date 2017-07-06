@@ -50,12 +50,55 @@
           ]
         }
       }
+    },
+    {
+      "description": "start star wars quiz",
+      "name":"start.quiz.intent",
+      "fulfillment": {
+        "conversationName": "start.quiz.intent"
+      },
+      "intent": {
+        "name": "start.quiz.intent",
+        "trigger": {
+          "queryPatterns": [
+            "start star wars quiz"
+          ]
+        }
+      }
+    },
+    {
+      "description": "answer question",
+      "name":"answer.question",
+      "fulfillment": {
+        "conversationName": "answer.question"
+      },
+    "intent": {
+      "name": "answer.question",
+      "parameters": [{
+        "name": "number",
+        "type": "SchemaOrg_Number"
+      }],
+      "trigger": {
+        "queryPatterns": [
+          "$SchemaOrg_Number:number",
+          "the answer is $SchemaOrg_Number:number"
+        ]
+      }
+    }
     }
   ],
   "conversations": {
     "color-finder-echo": {
       "name": "color-finder-echo",
       "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/index"
+    },
+    "start.quiz.intent": {
+      "name": "start.quiz.intent",
+      "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/startStarWarsQuiz"
+    },
+    "answer.question": {
+      "name": "answer.question",
+      "url": "https://victorops.vanderfox.net/grails-google-actions-demo/assistantAction/answerQuestion"
     },
     "color.intent": {
       "name": "color.intent",

@@ -1,8 +1,10 @@
 package grails.google.actions.demo
 
 import grails.transaction.Transactional
+import groovy.json.JsonBuilder
+import groovy.json.JsonSlurper
 
-@Transactional
+@Transactional()
 class ConversationService {
 
     def serviceMethod() {
@@ -11,39 +13,44 @@ class ConversationService {
 
     Conversation startConversation(String conversationId, Map conversationValues) {
         Conversation conversation = new Conversation(conversationId: conversationId)
+        conversation.conversationId = conversationId
         conversation.conversationToken = "convo-${System.nanoTime()}"
-        conversation.conversationValueMap = conversationValues.toMapString(conversationValues.size())
-        conversation.save()
+
+        def builder = new JsonBuilder()
+        builder(conversationValues)
+        log.debug("map= ${builder.toString()}")
+        conversation.conversationValueMap = builder.toString()
+        log.debug("Saving conversation id: ${conversationId}")
+        conversation.save(flush:true, failOnError:true)
         conversation
     }
 
     Conversation updateConversation(String conversationId, Map conversationValues) {
         Conversation conversation = Conversation.findByConversationId(conversationId)
         if (conversation) {
-            conversation.conversationValueMap = conversationValues.toMapString(conversationValues.size())
+            def builder = new JsonBuilder()
+            builder(conversationValues)
+            log.debug("map= ${builder.toString()}")
+            conversation.conversationValueMap = builder.toString()
+            log.debug("updating conversation id:${conversationId}")
+            conversation.save(flush:true)
         } else {
             conversation = startConversation(conversationId,conversationValues)
         }
         conversation
     }
 
+    @Transactional(readOnly = true)
     Conversation getConversation(String conversationId) {
+        log.debug("looking up conversation id: ${conversationId}")
         Conversation.findByConversationId(conversationId)
     }
 
-    Map getConversationMap(String stringMap) {
-        def conversationMap =
-                // Take the String value between
-                // the [ and ] brackets.
-                conversation.conversationValueMap[1..-2]
-                // Split on , to get a List.
-                        .split(', ')
-                // Each list item is transformed
-                // to a Map entry with key/value.
-                        .collectEntries { entry ->
-                    def pair = entry.split(':')
-                    [(pair.first()): pair.last()]
-                }
+    @Transactional(readOnly = true)
+    Map getConversationMap(String conversationValueMap) {
+        def slurper = new JsonSlurper()
+        (Map)slurper.parseText(conversationValueMap)
+
     }
 
 }
