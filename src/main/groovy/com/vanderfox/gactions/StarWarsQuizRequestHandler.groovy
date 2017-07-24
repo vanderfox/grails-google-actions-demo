@@ -95,7 +95,7 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
 
     private RootResponse startQuiz(RootRequest rootRequest, Conversation conversation, Map conversationMap) {
         initializeComponents(rootRequest,conversation,conversationMap)
-        String speechText = "Welcome to Unofficial Star Wars Quiz.  I'm going to ask you 5 questions to test your Star Wars knowledge.  Say repeat question at any time if you need to hear a question again, or say help if you need some help.  Let's get started"
+        String speechText = "Welcome to Unofficial Star Wars Quiz.  I'm going to ask you 5 questions to test your Star Wars knowledge.  Say repeat question at any time if you need to hear a question again, or say help if you need some help.  Let's get started. , "
         int questionId = conversationMap.get(CURRENT_QUESTION)
         int tableRowCount = 0
         if (!conversationMap.get("tableRowCount")) {
@@ -125,6 +125,7 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
         if (rawText.toLowerCase() == "help" || rawText.toLowerCase() == "help me") {
             return getHelpResponse(rootRequest,conversation,conversationMap)
         }
+
         log.debug("raw guessedAnswer=${rawText}")
         if (rawText.isNumber()) {
             guessedAnswer = Integer.parseInt(rawText)
@@ -165,7 +166,6 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
 
         def answer = question.getAnswer()
         log.info("correct answer for question index ${question.index} text: ${question.question} is:  " + answer)
-        //int questionCounter = Integer.parseInt((String) session.getAttribute("questionCounter"))
 
         currentQuestion++
         conversationMap.put(CURRENT_QUESTION,currentQuestion)
@@ -220,11 +220,11 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
     private String buildAskQuestion(int questionId) {
           Question question = getQuestion(questionId)
         String speechText = "\n"
-        speechText += question.getQuestion() + "\n"
+        speechText += question.getQuestion() + ". \n, "
         String[] options = question.getOptions()
         int index = 1
         for(String option: options) {
-            speechText += (index++) + "\n\n\n\n" + option + "\n\n\n"
+            speechText += (index++) + " ., \n\n\n\n" + option + "\n\n\n., "
         }
         speechText
 
@@ -235,7 +235,6 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
         int currentQuestion = (int) conversationMap.get(CURRENT_QUESTION)
         currentQuestion++
 
-        //conversationMap.put("lastQuestionAsked", conversationMap.get(LAST_QUESTION_ASKED))
         int tableRowCount = 0
         if (!conversationMap.get("tableRowCount")) {
             // lets get it then
@@ -249,11 +248,11 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
         conversationMap.put(LAST_QUESTION_ASKED, questionIndex)
         conversationService.updateConversation(conversation.conversationId,conversationMap)
         speechText += "\n"
-        speechText += question.getQuestion() + "\n,"
+        speechText += question.getQuestion() + ". \n, "
         String[] options = question.getOptions()
         int index = 1
         for(String option: options) {
-            speechText += (index++) + "\n\n\n\n" + option + "\n\n\n,"
+            speechText += (index++) + " ., \n\n\n\n" + option + "\n\n\n., "
         }
 
         ResponseBuilder.askResponse(speechText,conversation.conversationToken,["answer.question"] as String[])
@@ -300,7 +299,6 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
     private void initializeComponents(RootRequest rootRequest, Conversation conversation, Map conversationMap) {
 
         AmazonDynamoDBClient amazonDynamoDBClient = AmazonDynamoDBClientBuilder.defaultClient()
-        //amazonDynamoDBClient = new AmazonDynamoDBClient(creds,new ClientConfiguration().)
         ScanRequest req = new ScanRequest()
         req.setTableName("StarWarsQuiz")
         ScanResult result = amazonDynamoDBClient.scan(req)
@@ -314,7 +312,6 @@ public class StarWarsQuizRequestHandler extends RequestHandler {
     int getTableRowCount() {
 
         AmazonDynamoDBClient amazonDynamoDBClient = AmazonDynamoDBClientBuilder.defaultClient()
-        //amazonDynamoDBClient = new AmazonDynamoDBClient(creds,new ClientConfiguration().)
         ScanRequest req = new ScanRequest()
         req.setTableName("StarWarsQuiz")
         ScanResult result = amazonDynamoDBClient.scan(req)
