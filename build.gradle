@@ -62,7 +62,14 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     //compile group: 'ai.api.libai.web', name: 'libai-web-servlet', version: '1.4.8'
     compile 'org.grails.plugins:grails-api-ai:0.1.2'
-    compile "com.amazonaws:aws-java-sdk-dynamodb:1.10.34"
+    //compile "com.amazonaws:aws-java-sdk-dynamodb:1.10.34"
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-dynamodb
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.156'
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version: '1.11.156'
+
+
 }
 
 war.archiveName='grails-google-actions-demo.war'
