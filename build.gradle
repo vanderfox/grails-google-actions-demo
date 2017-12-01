@@ -32,7 +32,7 @@ repositories {
         url  "http://dl.bintray.com/vanderfox/google-actions-java-sdk" 
     }
     maven {
-        url  "http://dl.bintray.com/vanderfox/grails-api-ai"
+        url  "http://dl.bintray.com/vanderfox/grails-dialogflow"
     }
 }
 
